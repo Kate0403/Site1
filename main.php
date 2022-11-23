@@ -5,6 +5,7 @@
         <title>Home</title>
         <link rel="stylesheet" a href="Poliklinika\css3\main\user_style.css">
         <link rel="stylesheet" a href="Poliklinika\css3\main\nurse_style.css">
+        <link rel="stylesheet" a href="Poliklinika\css3\main\doc_style.css">
 </head>
     <body>
 <h1>Wellcome to our hospital</h1>
@@ -31,7 +32,7 @@
         <a class="doc" href="#">My schedule</a>
         <a class="doc" href="#">Patient's histories</a>
         <a class="doc" href="#">Our stuff</a>
-    <div class="nurse_animation start-home"></div>
+    <div class="doc_animation start-home"></div>
 </nav <?php endif; ?>>
 
 </body>    

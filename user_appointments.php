@@ -1,31 +1,97 @@
+<?php 
+$connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
+?>
+
 <!DOCTYPE  html>
 <html lang="en">
     <head>
         <title>My appoinments</title>
+        <link rel="stylesheet" a href="Poliklinika\css3\main\user_style.css">
+        <link rel="stylesheet" a href="Poliklinika\css3\user_pages\my_appointments.css">
+   
 </head>
-<style>
-    th, td{
-        padding: 10px;
-    }
-    th{
-        background: #606060;
-    }
-    td{
-        background: #b5b5b5;
-    }
-    </style>
+
     <body>
+    <h1>My appointments</h1>
         <table>
-            <tr>
+            <tr class="head">
                <th>Date</th>
                <th>Doctor's name</th>
                 <th>Doctor's job title</th>
+                <th colspan="2">Actions</th>
             </tr>
+            
+            
+            <?php
+            $user_id= $_COOKIE['user_id'];
+            $appointments = mysqli_query($connect, query:"SELECT * FROM appointments LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id WHERE Patient_id='.$user_id.' AND Date > UTC_TIMESTAMP()");
+         // $appointments = mysqli_query($connect, query:"SELECT * FROM `appointments`");
+           // var_dump($appointments);
+
+           if(mysqli_num_rows($appointments)==0){
+            echo'
             <tr>
-               <td>13.11.2022</td>
-               <td>Kate</td>
-                <td>Pediatr</td>
+            <td colspan="5" align="center">You do not have any appoinments</td>
             </tr>
+            ';
+           }
+           else{
+           $appointments = mysqli_fetch_all($appointments);
+           //var_dump($appointments);
+           foreach($appointments as $appointments){
+        echo '
+        <tr>
+               <td>' .$appointments[1]. '</td>
+               <td>' .$appointments[4]. '</td>
+                <td>' .$appointments[5].'</td>
+                <td><a href="update_app.php?date= '.$appointments[1].'&doc_id= '.$appointments[3].'">Update</a></td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            ';
+           }
+        }
+            ?>
+
+        </table>
+            <h1>My past appointments</h1>
+
+            <table>
+            <tr class="head">
+               <th>Date</th>
+               <th>Doctor's name</th>
+                <th>Doctor's job title</th>
+            
+            </tr>
+            
+            
+            <?php
+            $user_id= $_COOKIE['user_id'];
+            $appointments = mysqli_query($connect, query:"SELECT * FROM appointments LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id WHERE Patient_id='.$user_id.' AND Date < UTC_TIMESTAMP()");
+         // $appointments = mysqli_query($connect, query:"SELECT * FROM `appointments`");
+           // var_dump($appointments);
+
+           if(mysqli_num_rows($appointments)==0){
+            echo'
+            <tr>
+            <td colspan="3" align="center">Your appointments history is empty</td>
+            </tr>
+            ';
+           }
+           else{
+           $appointments = mysqli_fetch_all($appointments);
+           //var_dump($appointments);
+           foreach($appointments as $appointments){
+        echo '
+        <tr>
+               <td>' .$appointments[1]. '</td>
+               <td>' .$appointments[4]. '</td>
+                <td>' .$appointments[5].'</td>
+            </tr>
+            ';
+           }
+        }
+            ?>
+
         </table>
 
     </body>

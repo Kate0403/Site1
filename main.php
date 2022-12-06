@@ -12,7 +12,7 @@
 <!--menu for patient-->
 <?php if($_COOKIE['role_cookie']=='user'): ?> <nav class="user">
         <a class="user" href="user_appointments.php">My appointments</a>
-        <a class="user" href="#">Make an appointmant</a>
+        <a class="user" href="new_app_doc.php">Make an appointmant</a>
         <a class="user" href="#">Personal info</a>
         <a class="user" href="#">Our stuff</a>
         <a class="user" href="#">Hospital info</a>

@@ -1,24 +1,24 @@
-<?php 
+?php 
 $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
 ?>
 
 <!DOCTYPE  html>
 <html lang="en">
     <head>
-        <title>My appoinments</title>
+        <title>Personal data</title>
         <link rel="stylesheet" a href="Poliklinika\css3\main\user_style.css">
         <link rel="stylesheet" a href="Poliklinika\css3\user_pages\my_appointments.css">
    
 </head>
 
     <body>
-    <h1>My appointments</h1>
+    <h1>My personal data</h1>
         <table>
             <tr class="head">
-               <th>Date</th>
-               <th>Doctor's name</th>
-                <th>Doctor's job title</th>
-                <th colspan="2">Actions</th>
+               <th>Name</th>
+               <th>Surname</th>
+                <th>Date of birth</th>
+                <th>Address</th>
             </tr>
             
             

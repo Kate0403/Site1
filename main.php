@@ -13,17 +13,17 @@
 <?php if($_COOKIE['role_cookie']=='user'): ?> <nav class="user">
         <a class="user" href="user_appointments.php">My appointments</a>
         <a class="user" href="new_app_doc.php">Make an appointmant</a>
-        <a class="user" href="#">Personal info</a>
-        <a class="user" href="#">Our stuff</a>
+        <a class="user" href="user_profile.php">Personal info</a>
+        <a class="user" href="doc_stuff.php">Our stuff</a>
         <a class="user" href="#">Hospital info</a>
     <div class="user_animation start-home"></div>
 </nav <?php endif; ?>>
 
 <!--menu for nurse-->
 <?php if($_COOKIE['role_cookie']=='nurse'): ?> <nav class="nurse">
-        <a class="nurse" href="#">Doctor's schedule</a>
-        <a class="nurse" href="#">Patient's appointmants</a>
-        <a class="nurse" href="#">Our stuff</a>
+        <a class="nurse" href="doc_schedule.php">Doctor's schedule</a>
+        <a class="nurse" href="patient_app.php">Patient's appointmants</a>
+        <a class="nurse" href="doc_stuff.php">Our stuff</a>
     <div class="nurse_animation start-home"></div>
 </nav <?php endif; ?>>
 

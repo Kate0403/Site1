@@ -32,7 +32,7 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
    // echo $n_s;
         $patient=mysqli_query($connect, "SELECT Patient_id, Name, Surname FROM patients WHERE Name LIKE '%$n_s%' OR Surname LIKE '%$n_s%'");
         $patient = mysqli_fetch_all($patient);
-       // echo $patient[0][0];
+       //echo $patient[0][0];
        // $appo=mysqli_query($connect, "SELECT Date, doctors.Name, doctors.Job_title FROM appointments LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id WHERE Date >UTC_TIMESTAMP()");
        if(count($patient)==0){
          echo'
@@ -45,8 +45,12 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
         }
         else{
           for($i=0;$i<count($patient);$i++){
-                
-            $appo=mysqli_query($connect, "SELECT Date, doctors.Name, doctors.Job_title FROM appointments LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id WHERE appointments.Patient_id=111112 AND Date > UTC_TIMESTAMP()");
+
+                 //echo $patient[$i];
+                 $p=$patient[$i][0];
+            $appo=mysqli_query($connect, "SELECT Date, doctors.Name, doctors.Job_title FROM appointments 
+            LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id 
+            WHERE appointments.Patient_id=$p AND Date > UTC_TIMESTAMP()");
          
           //  $appo=mysqli_query($connect, "SELECT Date, doctors.Name, doctors.Job_title FROM appointments LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id WHERE ='".$patients[$i][2]."' AND Date >UTC_TIMESTAMP()");
             //print_r ($docs[$i][2]);

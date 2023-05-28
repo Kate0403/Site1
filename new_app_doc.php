@@ -1,7 +1,16 @@
 <?php 
 $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
+
+if(!$_GET['path_id']){ //смотрим есть ли в get user_id. если нет, то берём из cookie
 $patient_id=$_COOKIE['user_id'];
+}
+else{
+    $patient_id=$_GET['path_id'];
+}
 $doc_id = $_GET['doc_id'];
+
+$page=$_GET['p'];
+
 ?>
 
 <!DOCTYPE  html>
@@ -20,7 +29,7 @@ $doc_id = $_GET['doc_id'];
        
        <select name="docs"> 
     <?php 
-    
+
     $docs = mysqli_query($connect, query:"SELECT Doctor_id, Name, Job_title FROM `doctors`");
     $docs = mysqli_fetch_all($docs); 
     
@@ -40,6 +49,7 @@ $doc_id = $_GET['doc_id'];
     <button type="update" name="update">Get available time</button>
     <p>Available dates for visit to
          <?
+           //  echo $patient_id;
     $chosen_doc = mysqli_query($connect, query:"SELECT Name, Job_title FROM `doctors` WHERE Doctor_id='".$doc_id."'");
     $chosen_doc = mysqli_fetch_row($chosen_doc); 
          echo $chosen_doc[0], ' - ', $chosen_doc[1];
@@ -76,7 +86,7 @@ echo'
 if(isset($_POST['update'])){
     
     $doc_id=$_POST['docs'];
-    header('Location: new_app_doc.php?doc_id= '.$doc_id.'');
+    header('Location: new_app_doc.php?doc_id= '.$doc_id.'&path_id='.$patient_id.'&p='.$page.'');
 }
 if(isset($_POST['submit'])){
     
@@ -87,12 +97,17 @@ if(isset($_POST['submit'])){
 if($check[0]==NULL){
     mysqli_query($connect, query:"UPDATE `appointments` SET `Patient_id` = '".$patient_id."' WHERE Doctor_id='".$doc_id."' AND Appointment_id='".$appointment_id."'");
 
-
-    header('Location: user_appointments.php');
+    if($page==1){
+        header('Location: user_appointments.php');
+     }
+      if($page==2){  
+        //$last_url  = 'http://localhost/Site1/patient_app.php';
+        header('Location: patient_app.php'); //НЕ РАБОТАЕТ!!!!
+     }
 }
 else{
     
-    header('Location: new_app_doc.php?doc_id= '.$doc_id.'');
+    header('Location: new_app_doc.php?doc_id= '.$doc_id.'&path_id='.$patient_id.'&p='.$page.'');
     print_r('Error. Please choose other date and try again');
 }
 }

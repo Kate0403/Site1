@@ -38,14 +38,15 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
            else{
            $appointments = mysqli_fetch_all($appointments);
            //var_dump($appointments);
+           
            foreach($appointments as $appointments){
         echo '
         <tr>
                <td>' .$appointments[2]. '</td>
                <td>' .$appointments[5]. '</td>
                 <td>' .$appointments[6].'</td>
-                <td><a href="update_app.php?id='.$appointments[0].'&doc_id= '.$appointments[4].'">Update</a></td>
-                <td><a href="delete_app.php?id='.$appointments[0].'">Delete</a></td>
+                <td><a href="update_app.php?id='.$appointments[0].'&p=1">Update</a></td>
+                <td><a href="delete_app.php?id='.$appointments[0].'&p=1">Delete</a></td>
             </tr>
             ';
            }

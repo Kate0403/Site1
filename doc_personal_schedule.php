@@ -1,5 +1,6 @@
 <?php 
 $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
+
 ?>
 
 <!DOCTYPE  html>
@@ -31,13 +32,13 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
             echo'
             <table>
         <tr class="head">
-           <th colspan="5">' .$docs[$i][0]. ' appointments ('.$docs[$i][1].')</th>
+           <th colspan="4">' .$docs[$i][0]. ' appointments ('.$docs[$i][1].')</th>
         </tr>
         <tr class="head">
             <th>Date</th>
             <th>Name</th>
             <th>Surname</th>
-            <th colspan="2">Action</th>
+            <th>History</th>
         </tr>
         ';
         if(count($appo)==0){
@@ -58,16 +59,10 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
         <td>'.$appo[$j][0].'</td>
         <td>'.$appo[$j][1].'</td>
         <td>'.$appo[$j][2].'</td>
-        <td><a href="update_time.php?id='.$appo[$j][3].'&date='.$appo[$j][0].'">Update</a></td>
-        <td><a href="delete_time.php?id='.$appo[$j][3].'">Delete</a></td>
+        <td><a href="update_time.php?id='.$appo[$j][3].'">View patient History</a></td>
      </tr>
          ';
       }
-      echo '
-      <tr class="head">
-      <th colspan="5"><button><a href="add_app.php">Add appointment time</button></th>
-      </tr>
-      ';
         }
         echo' <table><br>';
         

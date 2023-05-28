@@ -58,6 +58,7 @@ if(isset($_POST['submit'])){
 
     if(mysqli_query($connect, query:"INSERT INTO appointments (Appointment_id, Patient_id, Date, Doctor_id) VALUES (NULL, NULL, '$new_date', '$doc_id')")){
         echo "New record created";
+        header('Location: doc_schedule.php');
     }
     else{
 echo "Error ".mysqli_error($connect);

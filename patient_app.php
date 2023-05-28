@@ -5,7 +5,7 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
 <!DOCTYPE  html>
 <html lang="en">
     <head>
-        <title>Doctor's schedule</title>
+        <title>Patient's scedual</title>
         <link rel="stylesheet" a href="Poliklinika\css3\main\user_style.css">
         <link rel="stylesheet" a href="Poliklinika\css3\user_pages\my_appointments.css">
    
@@ -20,12 +20,15 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
     
     <br>
     <button type="submit" name="search">Search</button>
+
+    
 </FORM>
    
             <?php
           // $patients=mysqli_query($connect, "SELECT Name, Surname FROM patients");
        //  $patients = mysqli_fetch_all($patients);
-          
+
+       
        if(isset($_POST['search'])){
 
         $n_s=$_POST['path_name'];
@@ -38,7 +41,7 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
          echo'
          <table>
          <tr>
-         <td colspan="4" align="center">There is NO appointments for this patient</td>
+         <td colspan="5" align="center">There is NO Result of search</td>
          </tr>
          </table>
          ';
@@ -47,10 +50,8 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
           for($i=0;$i<count($patient);$i++){
 
                  //echo $patient[$i];
-                 $p=$patient[$i][0];
-            $appo=mysqli_query($connect, "SELECT Date, doctors.Name, doctors.Job_title FROM appointments 
-            LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id 
-            WHERE appointments.Patient_id=$p AND Date > UTC_TIMESTAMP()");
+            $p=$patient[$i][0];
+            $appo=mysqli_query($connect, "SELECT Date, doctors.Name, doctors.Job_title, Appointment_id FROM appointments LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id  WHERE appointments.Patient_id=$p AND Date > UTC_TIMESTAMP()");
          
           //  $appo=mysqli_query($connect, "SELECT Date, doctors.Name, doctors.Job_title FROM appointments LEFT JOIN doctors ON appointments.Doctor_id=doctors.Doctor_id WHERE ='".$patients[$i][2]."' AND Date >UTC_TIMESTAMP()");
             //print_r ($docs[$i][2]);
@@ -60,13 +61,20 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
             echo'
             <table>
         <tr class="head">
-           <th colspan="4">' .$patient[$i][1]. ' '.$patient[$i][1].' appointments</th>
-        </tr>
+           <th colspan="5">' .$patient[$i][1]. ' '.$patient[$i][2].' appointments</th>
+           
+           </tr>
+           <tr class="head">
+           <th>Date</th>
+           <th>Doctor</th>
+           <th>Title</th>
+           <th colspan="2">Actions</th>
+           </tr>
         ';
         if(count($appo)==0){
          echo'
          <tr>
-         <td colspan="4" align="center">There is NO appointments for this patient</td>
+         <td colspan="5" align="center">There is NO appointments for this patient</td>
          </tr>
          ';
         }
@@ -81,13 +89,18 @@ $connect = mysqli_connect('localhost', 'root', 'root', 'hospital');
         <td>'.$appo[$j][0].'</td>
         <td>'.$appo[$j][1].'</td>
         <td>'.$appo[$j][2].'</td>
+        <td><a href="update_app.php?id='.$appo[$j][3].'&p=2">Update</a></td>
+        <td><a href="delete_app.php?id='.$appo[$j][3].'&p=2">Delete</a></td>
      </tr>
          ';
       }
         }
-        echo'<table><br>';
-        
+        echo'
+        <tr class="head"><th colspan="5"><button><a href="new_app_doc.php?path_id='.$p.'&p=2">Make new appointment for '.$patient[$i][1]. ' '.$patient[$i][1].'</a></button></th></tr>
+        <table><br>';
+     
            }
+          
         }
       }
            ?>
